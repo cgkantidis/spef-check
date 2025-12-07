@@ -5,9 +5,6 @@
 #include <array>
 #include <cctype>
 #include <charconv>
-#include <fmt/core.h>
-#include <fmt/ostream.h>
-#include <iostream>
 #include <tao/pegtl.hpp>
 #include <tao/pegtl/contrib/parse_tree.hpp>
 

@@ -4,7 +4,7 @@
 #include "spef_write.hpp"
 #include <filesystem>
 #include <fstream>
-#include <iostream>
+#include <print>
 #include <tao/pegtl/contrib/analyze.hpp>
 //#include <tao/pegtl/contrib/trace.hpp>
 
@@ -31,10 +31,10 @@ int main(int argc, char const *const *argv) {
         std::from_chars(num_random_sv.begin(), num_random_sv.end(), num_random);
     handle_from_chars(ec, num_random_sv);
     for (std::size_t i = 0; i < num_random; ++i) {
-      RandomSPEFGenerator rsg(fmt::format("Random {}", i), 10, 10, 100);
+      RandomSPEFGenerator rsg(std::format("Random {}", i), 10, 10, 100);
       SPEF spef = rsg.generate();
 
-      fs::path const outfile_p{fmt::format("random/random_{:02d}.spef", i)};
+      fs::path const outfile_p{std::format("random/random_{:02d}.spef", i)};
       fs::create_directories(outfile_p.parent_path());
       {
         std::ofstream outfile(outfile_p);
@@ -89,17 +89,20 @@ int main(int argc, char const *const *argv) {
       std::cerr << "ERROR: An exception occurred during parsing:\n";
       // this catch block needs access to the input
       auto const &pos = err.positions().front();
-      std::cerr << err.what() << '\n'
-                << input.line_at(pos) << '\n'
-                << std::setw((int)pos.column) << '^' << std::endl;
-      std::cerr << err.what() << '\n';
+      std::println(
+          stderr,
+          "{}\n{}\n{: >{}}",
+          err.what(),
+          input.line_at(pos),
+          pos.column,
+          '^');
     }
   } catch (std::exception const &e) {
-    std::cerr << e.what() << std::endl;
+    std::println(stderr, "{}", e.what());
   }
 
   if (!success) {
-    std::cerr << "Parsing failed\n";
+    std::println(stderr, "Parsing failed");
     return 2;
   }
 

@@ -55,10 +55,10 @@ void split(
 void handle_from_chars(std::errc ec, std::string_view match) {
   if (ec == std::errc::invalid_argument) {
     throw std::runtime_error(
-        fmt::format("Couldn't parse the value: {}", match));
+        std::format("Couldn't parse the value: {}", match));
   }
   if (ec == std::errc::result_out_of_range) {
-    throw std::runtime_error(fmt::format(
+    throw std::runtime_error(std::format(
         "The value does not fit in the underlying type: {}",
         match));
   }

@@ -1,7 +1,6 @@
 #include "spef_structs.hpp"
+#include <chrono>
 #include <ctime>
-#include <fmt/chrono.h>
-#include <fmt/core.h>
 #include <random>
 
 /// This class can be used to generate a random, standard-compliant SPEF file,
@@ -54,7 +53,7 @@ private:
   template<typename T>
   T const &r_choose(std::initializer_list<T> const &choices) {
     std::uniform_int_distribution<std::size_t> dist(0, choices.size() - 1);
-    return *std::next(choices.begin(), dist(m_gen));
+    return *std::next(choices.begin(), static_cast<long>(dist(m_gen)));
   }
   template<typename T>
   T &r_choose(std::vector<T> &choices) {
@@ -91,8 +90,10 @@ private:
   void gen_header_def() {
     m_spef.m_version = "\"IEEE 1481-2019\"";
     m_spef.m_design_name = "\"Random Design\"";
-    auto now = std::time(nullptr);
-    m_spef.m_date = fmt::format("\"{:%c}\"", fmt::localtime(now));
+    auto now = std::chrono::system_clock::now();
+    auto zoned = std::chrono::zoned_time{std::chrono::current_zone(), now};
+    m_spef.m_date = std::format("{:%a %b %d %H:%M:%S %Y}", zoned);
+    // Now date_str contains the formatted date
     m_spef.m_vendor = "\"RandomSPEFGenerator\"";
     m_spef.m_program_name = "\"RandomSPEFGenerator\"";
     m_spef.m_program_version = "\"0.0.1\"";
