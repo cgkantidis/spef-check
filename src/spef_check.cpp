@@ -13,14 +13,13 @@ namespace fs = std::filesystem;
 
 int main(int argc, char const *const *argv) {
   if (pegtl::analyze<spef_grammar>() != 0) {
-    std::cerr << "cycles without progress detected!\n";
+    std::println(stderr, "cycles without progress detected!");
     return 1;
   }
 
   if (argc == 1 || std::strcmp(argv[1], "-h") == 0 ||
       std::strcmp(argv[1], "--help") == 0) {
-    std::cerr << "Usage: " << argv[0] << " "
-              << " <filename>.spef\n";
+    std::println("Usage: {} <filename>.spef", argv[0]);
     return 1;
   }
 
@@ -86,7 +85,7 @@ int main(int argc, char const *const *argv) {
 
       std::cout << spef;
     } catch (pegtl::parse_error &err) {
-      std::cerr << "ERROR: An exception occurred during parsing:\n";
+      std::println(stderr, "ERROR: An exception occurred during parsing:");
       // this catch block needs access to the input
       auto const &pos = err.positions().front();
       std::println(
