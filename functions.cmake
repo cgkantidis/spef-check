@@ -37,6 +37,8 @@ target_compile_options(compilation_options INTERFACE
 target_compile_options(compilation_options INTERFACE -ftemplate-backtrace-limit=0)
 # treat all warnings as errors
 target_compile_options(compilation_options INTERFACE -Werror)
+# enable native architecture optimizations for Release builds
+target_compile_options(compilation_options INTERFACE $<$<CONFIG:Release>:-march=native>)
 
 # produce colored diagnostics when using Ninja
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
