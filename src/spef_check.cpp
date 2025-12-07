@@ -71,7 +71,7 @@ int main(int argc, char const *const *argv) {
   // outer try/catch for normal exceptions that might occur for example if the
   // file is not found
   try {
-    pegtl::read_input input{spef_file};
+    pegtl::mmap_input input{spef_file};
 
     // inner try/catch for the parser exceptions
     try {
