@@ -2,6 +2,7 @@
 #include "spef_random.hpp"
 #include "spef_structs.hpp"
 #include "spef_write.hpp"
+#include <CLI/CLI.hpp>
 #include <filesystem>
 #include <fstream>
 #include <print>
@@ -17,19 +18,24 @@ int main(int argc, char const *const *argv) {
     return 1;
   }
 
-  if (argc == 1 || std::strcmp(argv[1], "-h") == 0 ||
-      std::strcmp(argv[1], "--help") == 0) {
-    std::println("Usage: {} <filename>.spef", argv[0]);
-    return 1;
-  }
+  CLI::App app{"A tool to parse and check the correctness of a SPEF file"};
 
-  if (argc == 3 && std::strcmp(argv[1], "--random") == 0) {
-    std::size_t num_random{};
-    std::string_view num_random_sv{argv[2]};
-    auto const [_, ec] =
-        std::from_chars(num_random_sv.begin(), num_random_sv.end(), num_random);
-    handle_from_chars(ec, num_random_sv);
-    for (std::size_t i = 0; i < num_random; ++i) {
+  std::string input_file;
+  std::string output_file;
+  std::size_t random_count = 0;
+
+  app.add_option("input", input_file, "Input SPEF file to parse")
+      ->check(CLI::ExistingFile);
+  app.add_option("-o,--output", output_file, "Output file (default: stdout)");
+  app.add_option(
+      "--random",
+      random_count,
+      "Generate N random SPEF files for testing");
+
+  CLI11_PARSE(app, argc, argv);
+
+  if (random_count > 0) {
+    for (std::size_t i = 0; i < random_count; ++i) {
       RandomSPEFGenerator rsg(std::format("Random {}", i), 10, 10, 100);
       SPEF spef = rsg.generate();
 
@@ -39,31 +45,16 @@ int main(int argc, char const *const *argv) {
         std::ofstream outfile(outfile_p);
         outfile << spef;
       }
-      //{
-      //  SPEF spef;
-      //  SPEFHelper spef_h;
-      //  pegtl::read_input input{outfile_p};
-      //  bool success = pegtl::parse<pegtl::must<spef_grammar>, spef_action>(
-      //      input,
-      //      spef,
-      //      spef_h);
-
-      //  if (!success) {
-      //    throw std::runtime_error(
-      //        fmt::format("Failed to parse {}", outfile_p.c_str()));
-      //  }
-
-      //  fs::path const outfile2_p{fmt::format("gen/random_{:02d}.spef", i)};
-      //  fs::create_directories(outfile2_p.parent_path());
-      //  std::ofstream outfile(outfile2_p);
-      //  outfile << spef;
-      //}
     }
-
     return 0;
   }
 
-  std::filesystem::path const spef_file{argv[1]};
+  if (input_file.empty()) {
+    std::println(stderr, "Error: Input file is required");
+    return 1;
+  }
+
+  std::filesystem::path const spef_file{input_file};
 
   bool success = false;
 
@@ -83,7 +74,19 @@ int main(int argc, char const *const *argv) {
           spef,
           spef_h);
 
-      std::cout << spef;
+      if (!output_file.empty()) {
+        std::ofstream outfile(output_file);
+        if (!outfile) {
+          std::println(
+              stderr,
+              "Error: Cannot open output file '{}'",
+              output_file);
+          return 1;
+        }
+        outfile << spef;
+      } else {
+        std::cout << spef;
+      }
     } catch (pegtl::parse_error &err) {
       std::println(stderr, "ERROR: An exception occurred during parsing:");
       // this catch block needs access to the input

@@ -1,37 +1,37 @@
 mkdir -p gen
-./build/Release/spef_check benchmark/c3_slack.spef >gen/c3_slack.spef
-./build/Release/spef_check benchmark/simple.spef >gen/simple.spef
-./build/Release/spef_check benchmark/iso_example.spef >gen/iso_example.spef
-./build/Release/spef_check benchmark/c17_slack.spef >gen/c17_slack.spef
-./build/Release/spef_check benchmark/c17.spef >gen/c17.spef
-./build/Release/spef_check benchmark/s27.spef >gen/s27.spef
-./build/Release/spef_check benchmark/s344.spef >gen/s344.spef
-./build/Release/spef_check benchmark/s386.spef >gen/s386.spef
-./build/Release/spef_check benchmark/c432.spef >gen/c432.spef
-./build/Release/spef_check benchmark/s349.spef >gen/s349.spef
-./build/Release/spef_check benchmark/s400.spef >gen/s400.spef
-./build/Release/spef_check benchmark/c499.spef >gen/c499.spef
-./build/Release/spef_check benchmark/c1355.spef >gen/c1355.spef
-./build/Release/spef_check benchmark/s526.spef >gen/s526.spef
-./build/Release/spef_check benchmark/c1908.spef >gen/c1908.spef
-./build/Release/spef_check benchmark/s510.spef >gen/s510.spef
-./build/Release/spef_check benchmark/c880.spef >gen/c880.spef
-./build/Release/spef_check benchmark/c2670.spef >gen/c2670.spef
-./build/Release/spef_check benchmark/s1196.spef >gen/s1196.spef
-./build/Release/spef_check benchmark/s1494.spef >gen/s1494.spef
-./build/Release/spef_check benchmark/c3540.spef >gen/c3540.spef
-./build/Release/spef_check benchmark/c5315.spef >gen/c5315.spef
-./build/Release/spef_check benchmark/c7552_slack.spef >gen/c7552_slack.spef
-./build/Release/spef_check benchmark/c7552.spef >gen/c7552.spef
-./build/Release/spef_check benchmark/c6288.spef >gen/c6288.spef
-./build/Release/spef_check benchmark/systemcdes.spef >gen/systemcdes.spef
-./build/Release/spef_check benchmark/wb_dma.spef >gen/wb_dma.spef
-./build/Release/spef_check benchmark/tv80.spef >gen/tv80.spef
-./build/Release/spef_check benchmark/systemcaes.spef >gen/systemcaes.spef
-./build/Release/spef_check benchmark/ac97_ctrl.spef >gen/ac97_ctrl.spef
-./build/Release/spef_check benchmark/usb_funct.spef >gen/usb_funct.spef
-./build/Release/spef_check benchmark/pci_bridge32.spef >gen/pci_bridge32.spef
-./build/Release/spef_check benchmark/aes_core.spef >gen/aes_core.spef
-./build/Release/spef_check benchmark/fft_ispd.spef >gen/fft_ispd.spef
-./build/Release/spef_check benchmark/des_perf.spef >gen/des_perf.spef
-./build/Release/spef_check benchmark/vga_lcd.spef >gen/vga_lcd.spef
+./build/Release/spef_check -o gen/c3_slack.spef benchmark/c3_slack.spef
+./build/Release/spef_check -o gen/simple.spef benchmark/simple.spef
+./build/Release/spef_check -o gen/iso_example.spef benchmark/iso_example.spef
+./build/Release/spef_check -o gen/c17_slack.spef benchmark/c17_slack.spef
+./build/Release/spef_check -o gen/c17.spef benchmark/c17.spef
+./build/Release/spef_check -o gen/s27.spef benchmark/s27.spef
+./build/Release/spef_check -o gen/s344.spef benchmark/s344.spef
+./build/Release/spef_check -o gen/s386.spef benchmark/s386.spef
+./build/Release/spef_check -o gen/c432.spef benchmark/c432.spef
+./build/Release/spef_check -o gen/s349.spef benchmark/s349.spef
+./build/Release/spef_check -o gen/s400.spef benchmark/s400.spef
+./build/Release/spef_check -o gen/c499.spef benchmark/c499.spef
+./build/Release/spef_check -o gen/c1355.spef benchmark/c1355.spef
+./build/Release/spef_check -o gen/s526.spef benchmark/s526.spef
+./build/Release/spef_check -o gen/c1908.spef benchmark/c1908.spef
+./build/Release/spef_check -o gen/s510.spef benchmark/s510.spef
+./build/Release/spef_check -o gen/c880.spef benchmark/c880.spef
+./build/Release/spef_check -o gen/c2670.spef benchmark/c2670.spef
+./build/Release/spef_check -o gen/s1196.spef benchmark/s1196.spef
+./build/Release/spef_check -o gen/s1494.spef benchmark/s1494.spef
+./build/Release/spef_check -o gen/c3540.spef benchmark/c3540.spef
+./build/Release/spef_check -o gen/c5315.spef benchmark/c5315.spef
+./build/Release/spef_check -o gen/c7552_slack.spef benchmark/c7552_slack.spef
+./build/Release/spef_check -o gen/c7552.spef benchmark/c7552.spef
+./build/Release/spef_check -o gen/c6288.spef benchmark/c6288.spef
+./build/Release/spef_check -o gen/systemcdes.spef benchmark/systemcdes.spef
+./build/Release/spef_check -o gen/wb_dma.spef benchmark/wb_dma.spef
+./build/Release/spef_check -o gen/tv80.spef benchmark/tv80.spef
+./build/Release/spef_check -o gen/systemcaes.spef benchmark/systemcaes.spef
+./build/Release/spef_check -o gen/ac97_ctrl.spef benchmark/ac97_ctrl.spef
+./build/Release/spef_check -o gen/usb_funct.spef benchmark/usb_funct.spef
+./build/Release/spef_check -o gen/pci_bridge32.spef benchmark/pci_bridge32.spef
+./build/Release/spef_check -o gen/aes_core.spef benchmark/aes_core.spef
+./build/Release/spef_check -o gen/fft_ispd.spef benchmark/fft_ispd.spef
+./build/Release/spef_check -o gen/des_perf.spef benchmark/des_perf.spef
+./build/Release/spef_check -o gen/vga_lcd.spef benchmark/vga_lcd.spef

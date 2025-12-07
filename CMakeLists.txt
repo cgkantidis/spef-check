@@ -17,7 +17,14 @@ FetchContent_Declare(
   GIT_TAG        be527327653e94b02e711f7eff59285ad13e1db0  # 3.2.8
   OVERRIDE_FIND_PACKAGE
 )
+FetchContent_Declare(
+  cli11
+  GIT_REPOSITORY https://github.com/CLIUtils/CLI11.git
+  GIT_TAG        bfffd37e1f804ca4fae1caae106935791696b6a9  # v2.6.1
+  OVERRIDE_FIND_PACKAGE
+)
 find_package(pegtl REQUIRED)
+find_package(cli11 REQUIRED)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 add_subdirectory(src)
