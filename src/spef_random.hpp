@@ -91,8 +91,9 @@ private:
     m_spef.m_version = "\"IEEE 1481-2019\"";
     m_spef.m_design_name = "\"Random Design\"";
     auto now = std::chrono::system_clock::now();
-    auto zoned = std::chrono::zoned_time{std::chrono::current_zone(), now};
-    m_spef.m_date = std::format("{:%a %b %d %H:%M:%S %Y}", zoned);
+    auto now_seconds = std::chrono::floor<std::chrono::seconds>(now);
+    auto zoned = std::chrono::zoned_time{std::chrono::current_zone(), now_seconds};
+    m_spef.m_date = std::format("\"{:%a %b %d %H:%M:%S %Y}\"", zoned);
     // Now date_str contains the formatted date
     m_spef.m_vendor = "\"RandomSPEFGenerator\"";
     m_spef.m_program_name = "\"RandomSPEFGenerator\"";
